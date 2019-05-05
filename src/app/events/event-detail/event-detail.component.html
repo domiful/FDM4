@@ -1,0 +1,37 @@
+<ActionBar class="action-bar">
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()">
+    </NavigationButton>
+    <Label class="action-bar-title" [text]="event.name" horizontalAlignment="center"></Label>
+</ActionBar>
+
+<GridLayout class="page page-content">
+    <ScrollView>
+        <GridLayout rows="auto, auto, auto">
+            <Image [src]="event.imageUrl" stretch="aspectFill" height="200" class="m-b-15"></Image>
+
+            <StackLayout row="1" class="hr-light m-t-15 m-b-15"></StackLayout>
+
+            <GridLayout row="2" rows="*,*,*,*,*,*,*,*,*" columns="auto, *">
+                <Label text="Summary" class="p-l-15 p-b-10 m-r-20 text-secondary" row="1"></Label>
+                <Label [text]="event.summary" row="1" col="1" class="text p-b-10"></Label>
+
+                <Label text="Date" class="p-l-15 p-b-10 m-r-20 text-secondary" row="2"></Label>
+                <Label [text]="event.dateCreated" row="2" col="1" class="text p-b-10"></Label>
+
+                <Label text="Start" class="p-l-15 p-b-10 m-r-20 text-secondary" row="3"></Label>
+                <Label [text]="event.eventStart" row="3" col="1" class="text p-b-10"></Label>
+
+                <Label text="End" class="p-l-15 p-b-10 m-r-20 text-secondary" row="4"></Label>
+                <Label [text]="event.eventEnd" row="4" col="1" class="text p-b-10"></Label>
+
+                <Label text="Address" class="p-l-15 p-b-10 m-r-20 text-secondary" row="5"></Label>
+                <Label [text]="event.street" row="5" col="1" class="text p-b-10"></Label>
+                <Label [text]="event.city" row="6" col="1" class="text p-b-10"></Label>
+                <Label [text]="event.state" row="7" col="1" class="text p-b-10"></Label>
+                <Label [text]="event.street" row="8" col="1" class="text p-b-10"></Label>
+
+                <HtmlView [html]="event.content" row="9" colspan="2"></HtmlView>
+            </GridLayout>
+        </GridLayout>
+    </ScrollView>
+</GridLayout>

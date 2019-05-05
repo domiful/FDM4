@@ -1,0 +1,30 @@
+<ActionBar class="action-bar">
+    <Label text="Menu" class="actionBarLabel"></Label>
+</ActionBar>
+
+<GridLayout tkExampleTitle tkToggleNavButton>
+    <RadListView [items]="locations" marginRight="-2">
+        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" itemHeight="200" spanCount="1">
+        </ListViewGridLayout>
+        <ng-template tkListItemTemplate let-item="item">
+            <GridLayout backgroundColor="White">
+                <GridLayout>
+                    <ios>
+                        <Image src="{{ item.imageSrc }}" stretch="aspectFill"></Image>
+                    </ios>
+                    <android>
+                        <Image src="{{ item.imageSrc }}" stretch="aspectFill" height="180"></Image>
+                        <!-- <FrescoDrawee horizontalAlignment="stretch" height="180"
+                            imageUri="{{ item.imageSrc }}"></FrescoDrawee> -->
+                    </android>
+                    <GridLayout verticalAlignment="bottom">
+                        <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
+                            <Label text="{{ item.city }}" class="locationCity"></Label>
+                            <Label text="{{ item.country }}" class="locationCountry"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                </GridLayout>
+            </GridLayout>
+        </ng-template>
+    </RadListView>
+</GridLayout>
