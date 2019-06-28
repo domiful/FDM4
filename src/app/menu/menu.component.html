@@ -1,30 +1,116 @@
-<ActionBar class="action-bar">
-    <Label text="Menu" class="actionBarLabel"></Label>
-</ActionBar>
+<ActionBar title="Home" class="action-bar" flat="true">
+    <ActionItem ios.systemIcon="14" ios.position="right" android.position="popup" (tap)="onNavItemTap('/login')">
+    </ActionItem>
 
-<GridLayout tkExampleTitle tkToggleNavButton>
-    <RadListView [items]="locations" marginRight="-2">
-        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" itemHeight="200" spanCount="1">
-        </ListViewGridLayout>
-        <ng-template tkListItemTemplate let-item="item">
-            <GridLayout backgroundColor="White">
-                <GridLayout>
-                    <ios>
-                        <Image src="{{ item.imageSrc }}" stretch="aspectFill"></Image>
-                    </ios>
-                    <android>
-                        <Image src="{{ item.imageSrc }}" stretch="aspectFill" height="180"></Image>
-                        <!-- <FrescoDrawee horizontalAlignment="stretch" height="180"
-                            imageUri="{{ item.imageSrc }}"></FrescoDrawee> -->
-                    </android>
-                    <GridLayout verticalAlignment="bottom">
-                        <StackLayout paddingTop="8" paddingBottom="8" paddingLeft="16" paddingRight="16">
-                            <Label text="{{ item.city }}" class="locationCity"></Label>
-                            <Label text="{{ item.country }}" class="locationCountry"></Label>
+</ActionBar>
+<ScrollView class="page">
+
+    <StackLayout class="home-panel">
+
+        <SegmentedBar colSpan="3" [items]="tabs" selectedIndex="0" (selectedIndexChange)="onSelectedIndexChange($event)"
+            class="m-5 segBar">
+        </SegmentedBar>
+        <GridLayout tkExampleTitle tkToggleNavButton visibility="{{ visibleTab === 0 ? 'visible' : 'collapsed' }}">
+            <GridLayout tkDrawerContent rows="auto, *" class="dash">
+                <StackLayout row="0">
+                    <Label text="Past Due Activities" class="act-label"></Label>
+
+                </StackLayout>
+                <RadListView row="1" [items]="pastDue" (itemTap)="onEventItemTap($event)" class="list-group"
+                    backgroundColor="transparent">
+                    <!--
+    RadListView is a UI component part of the Progress NativeScript UI set of components.
+    Learn more about the RadListView UI component and how it can be customized in this documentation article:
+    https://docs.nativescript.org/angular/ui/professional-ui-components/ng-ListView/getting-started
+    This component is used to display the master list in the master-detail structure.
+    -->
+                    <ng-template tkListItemTemplate let-event="item">
+                        <StackLayout class="list-group-item">
+                            <GridLayout rows="*, *,* " columns="*,68" class="list-group-item-content">
+                                <Button class="fa btn btn-primary btn-active" col="1" id="{{event.description}}"
+                                    fontSize="18" text='&#xf00c;' borderRadius="24" (tap)="markComplete()"></Button>
+
+                                <Label [text]="event.description" class="text-primary font-weight-bold"></Label>
+
+                                <StackLayout row="1" class="hr-light m-t-5 m-b-5" colSpan="3"></StackLayout>
+                                <StackLayout row="2" col="1" verticalAlignment="center">
+                                    <Label class="p-b-10">
+                                        <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                                        <FormattedString ios:fontFamily="system">
+                                            <Span text="Type" fontSize="12" class="fa text-primary"></Span>
+                                        </FormattedString>
+                                    </Label>
+                                    <Label class="p-b-10">
+                                        <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                                        <FormattedString ios:fontFamily="system">
+                                            <Span text="" class="fa text-primary" fontSize="32"></Span>
+                                            <Span text="{{event.activityType ==='call' ? '&#xf095;' : '&#xf0e0;' }}"
+                                                class="fa text-primary" fontSize="32"></Span>
+                                        </FormattedString>
+                                    </Label>
+
+                                </StackLayout>
+
+                                <StackLayout row="2" verticalAlignment="center" class="list-group-item-text">
+                                    <Label class="p-b-10">
+                                        <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                                        <FormattedString ios:fontFamily="system">
+                                            <Span text="&#xf007;   Owner: " class="fa text-primary"></Span>
+                                            <Span [text]="event.owner"></Span>
+                                        </FormattedString>
+                                    </Label>
+
+                                    <Label class="p-b-10">
+                                        <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                                        <FormattedString ios:fontFamily="system">
+                                            <Span text="&#xf012;   Priority:  &nbsp; &nbsp;&nbsp;"
+                                                class="fa text-primary"></Span>
+                                            <Span
+                                                text="{{event.priority ==='1' ? '&#xf2cb; Low' : event.priority ==='2' ? '&#xf2c9; Medium' : '&#xf2c7; High' }}"
+                                                class="{{event.priority ==='1' ? 'fa priority-label low' : event.priority ==='2' ? 'fa priority-label medium' : 'fa priority-label high' }}"></Span>
+                                        </FormattedString>
+                                    </Label>
+                                    <Label class="p-b-10">
+                                        <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                                        <FormattedString ios:fontFamily="system">
+                                            <Span text="&#xf111;   Status: " class="fa text-primary"></Span>
+                                            <Span [text]="event.status"></Span>
+                                        </FormattedString>
+                                    </Label>
+                                </StackLayout>
+
+
+                            </GridLayout>
                         </StackLayout>
-                    </GridLayout>
-                </GridLayout>
+                    </ng-template>
+                </RadListView>
             </GridLayout>
-        </ng-template>
-    </RadListView>
-</GridLayout>
+
+        </GridLayout>
+
+        <GridLayout tkExampleTitle tkToggleNavButton visibility="{{ visibleTab === 1 ? 'visible' : 'collapsed' }}">
+            <RadListView [items]="accounts" marginRight="-2">
+                <ng-template tkListItemTemplate let-item="item">
+                    <GridLayout backgroundColor="White" item-id="{{item.id}}" (tap)="accountSelected(item)">
+                        <GridLayout columns="auto, *, auto" rows="36, 30" verticalAlignment="top" class="accounts-list">
+
+                            <Image
+                                src="{{ item.tier === '1' ? 'res://images/medal1' : item.tier === '2' ? 'res://images/medal2' : 'res://images/medal3'}}"
+                                stretch="aspectFit" rowSpan="2" horizontalAlignment="left">
+                            </Image>
+
+
+                            <Label text="{{ item.name }}" textWrap="true" col="1" colSpan="2" minHeight="50"
+                                fontSize="18" margin="3"></Label>
+                            <Label text="Customer: {{item.customer==='yes'? '&#xf058;': '&#xf057;'}}" col="1" row="1"
+                                class="fa" fontSize="18" horizontalAlignment="left" verticalAlignment="bottom"
+                                margin="3"></Label>
+                            <Label text="{{item.id}}" col="2" row="1" color="lightblue" fontSize="1"
+                                verticalAlignment="bottom" margin="3"></Label>
+                        </GridLayout>
+                    </GridLayout>
+                </ng-template>
+            </RadListView>
+        </GridLayout>
+    </StackLayout>
+</ScrollView>

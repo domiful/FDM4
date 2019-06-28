@@ -1,0 +1,70 @@
+<ActionBar class="action-bar">
+    <!-- Should remove the navigation button -->
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <Label class="action-bar-title" text="Sums" horizontalAlignment="center"></Label>
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Sales Reports"></Label>
+</ActionBar>
+<ScrollView>
+    <GridLayout rows="24, 256,256,256,256" class="page page-content">
+        <StackLayout class="which-account">
+            <Label text="Account: {{account.name}}"></Label>
+        </StackLayout>
+        <StackLayout horizontalAlignment="center" row="1">
+            <Label class="chart-header" text="Total Sales / Year"></Label>
+            <RadCartesianChart id="cartesianChart" style="height: 100%">
+                <CategoricalAxis tkCartesianHorizontalAxis labelSize="6" labelMargin="10"></CategoricalAxis>
+                <LinearAxis tkCartesianVerticalAxis></LinearAxis>
+                <BarSeries tkCartesianSeries [items]="dash" categoryProperty="year" valueProperty="totalSales"
+                    seriesName="Bar">
+                </BarSeries>
+                <Palette tkCartesianPalette seriesName="Bar">
+                    <PaletteEntry tkCartesianPaletteEntry fillColor="#db5560" strokeColor="#bb1616"></PaletteEntry>
+                </Palette>
+            </RadCartesianChart>
+        </StackLayout>
+        <StackLayout horizontalAlignment="center" row="2">
+            <Label class="chart-header" text="Total Units / Year"></Label>
+            <RadCartesianChart id="cartesianChart" style="height: 100%">
+                <CategoricalAxis tkCartesianHorizontalAxis labelSize="6" labelMargin="10"></CategoricalAxis>
+                <LinearAxis tkCartesianVerticalAxis></LinearAxis>
+                <BarSeries tkCartesianSeries [items]="dash" categoryProperty="year" valueProperty="totalUnits"
+                    seriesName="Bar">
+                </BarSeries>
+                <Palette tkCartesianPalette seriesName="Bar">
+                    <PaletteEntry tkCartesianPaletteEntry fillColor="#db5560" strokeColor="#bb1616"></PaletteEntry>
+                </Palette>
+            </RadCartesianChart>
+        </StackLayout>
+        <StackLayout horizontalAlignment="center" row="3">
+            <Label class="chart-header" text="eCommerce Sales / Year"></Label>
+            <RadCartesianChart id="cartesianChart" style="height: 100%">
+                <CategoricalAxis tkCartesianHorizontalAxis labelSize="6" labelMargin="10"></CategoricalAxis>
+                <LinearAxis tkCartesianVerticalAxis></LinearAxis>
+                <BarSeries tkCartesianSeries [items]="dash" categoryProperty="year" valueProperty="ecomSales"
+                    seriesName="Bar">
+                </BarSeries>
+                <Palette tkCartesianPalette seriesName="Bar">
+                    <PaletteEntry tkCartesianPaletteEntry fillColor="#db5560" strokeColor="#bb1616"></PaletteEntry>
+                </Palette>
+            </RadCartesianChart>
+        </StackLayout>
+        <StackLayout horizontalAlignment="center" row="4">
+            <Label class="chart-header" text="eCommerce Units / Year"></Label>
+            <RadCartesianChart id="cartesianChart" style="height: 100%">
+                <CategoricalAxis tkCartesianHorizontalAxis labelSize="6" labelMargin="10"></CategoricalAxis>
+                <LinearAxis tkCartesianVerticalAxis></LinearAxis>
+                <BarSeries tkCartesianSeries [items]="dash" categoryProperty="year" valueProperty="ecomUnits"
+                    seriesName="Bar">
+                </BarSeries>
+                <Palette tkCartesianPalette seriesName="Bar">
+                    <PaletteEntry tkCartesianPaletteEntry fillColor="#db5560" strokeColor="#bb1616"></PaletteEntry>
+                </Palette>
+            </RadCartesianChart>
+        </StackLayout>
+
+    </GridLayout>
+
+</ScrollView>

@@ -1,7 +1,7 @@
 {
     "xml.fileAssociations": [
         {
-            "systemId": "/Users/dom/workspace/CL1/schema/tns.xsd",
+            "systemId": "/Users/dom/workspace/FDM4/schema/tns.xsd",
             "pattern": "**/**/*.xml"
         }
     ],

@@ -1,16 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
-import * as Push from "kinvey-nativescript-sdk/push";
-const promise = Push.register((message: any) => {
-    alert(message);
-})
-    .then((deviceToken: string) => {
-        // ...
-    })
-    .catch((error: Error) => {
-        // ...
-    });
+
 @Component({
     selector: "Home",
     moduleId: module.id,

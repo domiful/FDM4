@@ -24,8 +24,23 @@
 }
 
 //Action bar
+
 ActionBar .action-bar-title {
     horizontal-align: center;
+}
+
+#logoutButton {
+    background-color: $accent-dark;
+    border: none;
+    padding: 0;
+    font-size: 24;
+}
+
+.actionBarLabel {
+    font-size: 24;
+    font-weight: bold;
+    padding: 6;
+
 }
 
 // Drawer navigation custom styles
@@ -96,4 +111,64 @@ $sidedrawer-list-icon-size: 20;
 
 .web-view {
     margin-top: -10;
+}
+
+.accounts-list {
+    background-color: $accent-dark;
+    margin: 2 0;
+    border-radius: 12; //border-bottom: 12 solid lightgray;
+    color: gray;
+}
+
+.activity-card {
+    margin: 6;
+    padding: 6;
+    font-size: 24;
+}
+
+.activity-card2 {
+    margin: 6;
+    padding: 6;
+    font-size: 18;
+}
+
+.activity-details {
+    padding: 6;
+    margin: 6;
+    font-size: 18;
+}
+
+.which-account {
+    text-align: center;
+    background-color: $accent-dark;
+    color: white;
+}
+
+.title-button {
+    font-size: 20;
+}
+
+.priority-label {
+    font-size: 18;
+
+    &.low {
+        color: green;
+    }
+
+    &.medium {
+        color: orange;
+    }
+
+    &.high {
+        color: red;
+    }
+}
+
+.chart-header {
+    font-size: 18;
+    margin: 6;
+}
+
+.dash {
+    background-color: #EFF0F1;
 }

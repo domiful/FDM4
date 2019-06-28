@@ -6,6 +6,9 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
 import { Event } from "./shared/event.model";
 import { EventService } from "./shared/event.service";
+import { AccountState } from "../shared/accountState";
+import { prompt } from "tns-core-modules/ui/dialogs";
+
 
 /* ***********************************************************
 * This is the master list component in the master-detail structure.
@@ -19,13 +22,16 @@ import { EventService } from "./shared/event.service";
     styleUrls: ["./event-list.component.scss"]
 })
 export class EventListComponent implements OnInit {
+    account = {};
     private _isLoading: boolean = false;
     private _events: ObservableArray<Event> = new ObservableArray<Event>([]);
 
     constructor(
         private _eventService: EventService,
         private _routerExtensions: RouterExtensions
-    ) { }
+    ) {
+        this.account = AccountState.config.account;
+    }
 
     /* ***********************************************************
     * Use the "ngOnInit" handler to get the data and assign it to the
@@ -80,5 +86,33 @@ export class EventListComponent implements OnInit {
     onDrawerButtonTap(): void {
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.showDrawer();
+    }
+    markComplete(): void {
+        const promptOptions = {
+            title: "Mark Complete",
+            message: "Enter comment here.",
+            okButtonText: "Submit",
+            cancelButtonText: "Cancel",
+            inputType: "text", // email, number, text, password, or email
+            capitalizationType: "sentences" // all, none, sentences or words
+        };
+        prompt(promptOptions).then((r) => {
+            console.log("Dialog result: ", r.result);
+            console.log("Text: ", r.text);
+        });
+    }
+    newActivity(): void {
+        const promptOptions = {
+            title: "New Activity",
+            message: "Title",
+            okButtonText: "Submit",
+            cancelButtonText: "Cancel",
+            inputType: "text", // email, number, text, password, or email
+            capitalizationType: "words" // all, none, sentences or words
+        };
+        prompt(promptOptions).then((r) => {
+            console.log("Dialog result: ", r.result);
+            console.log("Text: ", r.text);
+        });
     }
 }

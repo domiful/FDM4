@@ -4,6 +4,8 @@ import { switchMap } from "rxjs/operators";
 
 import { Event } from "../shared/event.model";
 import { EventService } from "../shared/event.service";
+import { AccountState } from "~/app/shared/accountState";
+import { prompt } from "tns-core-modules/ui/dialogs";
 
 /* ***********************************************************
 * This is the item details component in the master-detail structure.
@@ -68,5 +70,30 @@ export class EventDetailComponent implements OnInit {
                     curve: "ease"
                 }
             });
+    }
+
+    gotoComments(args): void {
+        console.log(args.object.id);
+        AccountState.config.account["activity"] = args.object.id;
+        this._routerExtensions.navigate(["/comments"], {
+            transition: {
+                name: "slideTop"
+            }
+        });
+    }
+
+    markComplete(): void {
+        const promptOptions = {
+            title: "Mark Complete",
+            message: "Enter comment here.",
+            okButtonText: "Submit",
+            cancelButtonText: "Cancel",
+            inputType: "text", // email, number, text, password, or email
+            capitalizationType: "sentences" // all, none, sentences or words
+        };
+        prompt(promptOptions).then((r) => {
+            console.log("Dialog result: ", r.result);
+            console.log("Text: ", r.text);
+        });
     }
 }

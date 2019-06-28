@@ -1,6 +1,6 @@
 {
   "nativescript": {
-    "id": "org.nativescript.CL1",
+    "id": "org.nativescript.FDM4",
     "tns-android": {
       "version": "5.3.1"
     },
@@ -29,6 +29,11 @@
     "nativescript-imagepicker": "~6.1.0",
     "nativescript-locate-address": "^1.0.2",
     "nativescript-theme-core": "~1.0.4",
+    "nativescript-ui-autocomplete": "^4.0.0",
+    "nativescript-ui-calendar": "^4.0.0",
+    "nativescript-ui-chart": "^4.0.2",
+    "nativescript-ui-dataform": "^4.0.0",
+    "nativescript-ui-gauge": "^4.0.0",
     "nativescript-ui-listview": "~6.1.0",
     "nativescript-ui-sidedrawer": "~6.0.0",
     "reflect-metadata": "~0.1.12",

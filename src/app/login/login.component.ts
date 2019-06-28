@@ -5,6 +5,8 @@ import { RouterExtensions } from "nativescript-angular/router";
 
 import { User } from "~/app/shared/user.model";
 import { UserService } from "~/app/shared/user.service";
+import { Kinvey } from "kinvey-nativescript-sdk";
+
 
 
 @Component({
@@ -23,7 +25,7 @@ export class LoginComponent {
     constructor(private page: Page, private userService: UserService, private routerExtensions: RouterExtensions) {
         this.page.actionBarHidden = true;
         this.user = new User();
-        this.user.email = "dom";
+        this.user.email = "dom.raymond@progress.com";
         this.user.password = "pass";
     }
 
@@ -46,20 +48,40 @@ export class LoginComponent {
     }
 
     login() {
-        this.userService.login(this.user)
-            .then(() => {
-                this.processing = false;
-                this.routerExtensions.navigate(["/home"], {
-                    clearHistory: true,
-                    transition: {
-                        name: "slideLeft"
-                    }
-                });
-            })
-            .catch(() => {
-                this.processing = false;
-                this.alert("Unfortunately we could not find your account.");
+        if (Kinvey.User.getActiveUser()) {
+            this.userService.logout().then(() => {
+                this.userService.login(this.user)
+                    .then(() => {
+                        this.processing = false;
+                        this.routerExtensions.navigate(["/menu"], {
+                            clearHistory: true,
+                            transition: {
+                                name: "slideLeft"
+                            },
+                        });
+                    })
+                    .catch(() => {
+                        this.processing = false;
+                        this.alert("Unfortunately we could not find your account.");
+                    });
             });
+        } else {
+            this.userService.login(this.user)
+                .then(() => {
+                    this.processing = false;
+                    this.routerExtensions.navigate(["/menu"], {
+                        clearHistory: true,
+                        transition: {
+                            name: "slideLeft"
+                        },
+                    });
+                })
+                .catch(() => {
+                    this.processing = false;
+                    this.alert("Unfortunately we could not find your account.");
+                });
+        }
+
     }
 
     register() {

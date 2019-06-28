@@ -26,7 +26,7 @@ export class EventService {
     }
 
     private allEvents: Array<Event> = [];
-    private eventsStore = Kinvey.DataStore.collection<any>("Events");
+    private eventsStore = Kinvey.DataStore.collection<any>("activities");
 
     getEventById(id: string): Event {
         if (!id) {

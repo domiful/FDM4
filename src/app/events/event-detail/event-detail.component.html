@@ -1,37 +1,80 @@
 <ActionBar class="action-bar">
     <NavigationButton android.systemIcon="ic_menu_back" (tap)="onBackButtonTap()">
     </NavigationButton>
-    <Label class="action-bar-title" [text]="event.name" horizontalAlignment="center"></Label>
+    <Label class="action-bar-title" [text]="Activity" horizontalAlignment="center"></Label>
 </ActionBar>
 
-<GridLayout class="page page-content">
-    <ScrollView>
-        <GridLayout rows="auto, auto, auto">
-            <Image [src]="event.imageUrl" stretch="aspectFill" height="200" class="m-b-15"></Image>
+<GridLayout rows="auto, *, *" class="page page-content" height="600">
+    <StackLayout class="activity-card2">
+        <GridLayout rows="*, *,* " columns="64,*,128" class="list-group-item-content">
+            <Label [text]="event.description" colspan="3" class="text-primary font-weight-bold"></Label>
 
-            <StackLayout row="1" class="hr-light m-t-15 m-b-15"></StackLayout>
+            <StackLayout row="1" class="hr-light m-t-5 m-b-5" colSpan="3"></StackLayout>
+            <StackLayout row="2" verticalAlignment="center">
+                <Label class="p-b-10">
+                    <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                    <FormattedString ios:fontFamily="system">
+                        <Span text="Type" fontSize="12" class="fa text-primary"></Span>
+                    </FormattedString>
+                </Label>
+                <Label class="p-b-10">
+                    <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                    <FormattedString ios:fontFamily="system">
+                        <Span text="" class="fa text-primary" fontSize="32"></Span>
+                        <Span text="{{event.activityType ==='call' ? '&#xf095;' : '&#xf0e0;' }}" class="fa text-primary"
+                            fontSize="32"></Span>
+                    </FormattedString>
+                </Label>
 
-            <GridLayout row="2" rows="*,*,*,*,*,*,*,*,*" columns="auto, *">
-                <Label text="Summary" class="p-l-15 p-b-10 m-r-20 text-secondary" row="1"></Label>
-                <Label [text]="event.summary" row="1" col="1" class="text p-b-10"></Label>
+            </StackLayout>
 
-                <Label text="Date" class="p-l-15 p-b-10 m-r-20 text-secondary" row="2"></Label>
-                <Label [text]="event.dateCreated" row="2" col="1" class="text p-b-10"></Label>
+            <StackLayout row="2" col="1" verticalAlignment="center" class="list-group-item-text">
+                <Label class="p-b-10">
+                    <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                    <FormattedString ios:fontFamily="system">
+                        <Span text="&#xf007;   Owner: " class="fa text-primary"></Span>
+                        <Span [text]="event.owner"></Span>
+                    </FormattedString>
+                </Label>
 
-                <Label text="Start" class="p-l-15 p-b-10 m-r-20 text-secondary" row="3"></Label>
-                <Label [text]="event.eventStart" row="3" col="1" class="text p-b-10"></Label>
+                <Label class="p-b-10">
+                    <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                    <FormattedString ios:fontFamily="system">
+                        <Span text="&#xf012;   Priority:  &nbsp; &nbsp;&nbsp;" class="fa text-primary"></Span>
+                        <Span
+                            text="{{event.priority ==='1' ? '&#xf2cb; Low' : event.priority ==='2' ? '&#xf2c9; Medium' : '&#xf2c7; High' }}"
+                            class="{{event.priority ==='1' ? 'fa priority-label low' : event.priority ==='2' ? 'fa priority-label medium' : 'fa priority-label high' }}"></Span>
+                    </FormattedString>
+                </Label>
+                <Label class="p-b-10">
+                    <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                    <FormattedString ios:fontFamily="system">
+                        <Span text="&#xf111;   Status: " class="fa text-primary"></Span>
+                        <Span [text]="event.status"></Span>
+                    </FormattedString>
+                </Label>
+            </StackLayout>
+            <StackLayout row="2" col="2">
+                <Button class="btn btn-primary btn-active" id="{{event.description}}" fontSize="12" text="Complete"
+                    (tap)="markComplete()"></Button>
+            </StackLayout>
 
-                <Label text="End" class="p-l-15 p-b-10 m-r-20 text-secondary" row="4"></Label>
-                <Label [text]="event.eventEnd" row="4" col="1" class="text p-b-10"></Label>
-
-                <Label text="Address" class="p-l-15 p-b-10 m-r-20 text-secondary" row="5"></Label>
-                <Label [text]="event.street" row="5" col="1" class="text p-b-10"></Label>
-                <Label [text]="event.city" row="6" col="1" class="text p-b-10"></Label>
-                <Label [text]="event.state" row="7" col="1" class="text p-b-10"></Label>
-                <Label [text]="event.street" row="8" col="1" class="text p-b-10"></Label>
-
-                <HtmlView [html]="event.content" row="9" colspan="2"></HtmlView>
-            </GridLayout>
         </GridLayout>
-    </ScrollView>
+    </StackLayout>
+    <GridLayout row="1" rows="32,32,32,64,auto" columns="120, *" class="activity-details">
+        <Label text="Date Created: " class="p-l-15 p-b-10 m-r-20 text-secondary" textWrap="true" row="0"
+            col="0"></Label>
+        <Label text="Created By: " class="p-l-15 p-b-10 m-r-20 text-secondary" textWrap="true" row="1" col="0"></Label>
+        <Label text="Due Date: " class="p-l-15 p-b-10 m-r-20 text-secondary" textWrap="true" row="2" col="0"></Label>
+        <Label text="{{event.createDate}} " class="text p-b-10" textWrap="true" row="0" col="1"></Label>
+        <Label text="{{event.createdBy}} " class="text p-b-10" textWrap="true" row="1" col="1"></Label>
+        <Label text="{{event.dueDate}} " class="text p-b-10" textWrap="true" row="2" col="1"></Label>
+        <Button class="btn btn-primary btn-active" row="3" colspan="2" id="{{event.description}}" text="Comments"
+            (tap)="gotoComments($event)"></Button>
+
+    </GridLayout>
+
+
+
+
 </GridLayout>

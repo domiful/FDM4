@@ -1,15 +1,20 @@
 <ActionBar class="action-bar">
     <!-- Should remove the navigation button -->
     <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
-    <Label class="action-bar-title" text="Reservations" horizontalAlignment="center"></Label>
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Events"></Label>
+    <ActionItem ios.position="right" android.position="right" (tap)="newActivity()">
+        <Label text="&#xf055;" class="fa title-button"></Label>
+    </ActionItem>
+    <Label class="action-bar-title" text="Activities"></Label>
 </ActionBar>
 
-<GridLayout class="page page-content">
-    <RadListView [items]="events" (itemTap)="onEventItemTap($event)" class="list-group">
+<GridLayout rows="24, *" class="page page-content">
+    <StackLayout class="which-account">
+        <Label text="Account: {{account.name}}"></Label>
+    </StackLayout>
+    <RadListView row="1" [items]="events" (itemTap)="onEventItemTap($event)" class="list-group">
         <!--
     RadListView is a UI component part of the Progress NativeScript UI set of components.
     Learn more about the RadListView UI component and how it can be customized in this documentation article:
@@ -18,36 +23,59 @@
     -->
         <ng-template tkListItemTemplate let-event="item">
             <StackLayout class="list-group-item">
-                <GridLayout rows="*, *, *, *" columns="*" class="list-group-item-content">
-                    <Label [text]="event.name" class="text-primary font-weight-bold"></Label>
+                <GridLayout rows="*, *,* " columns="64,*,128" class="list-group-item-content">
+                    <Label [text]="event.description" colspan="3" class="text-primary font-weight-bold"></Label>
 
-                    <StackLayout row="1" class="hr-light m-t-5 m-b-5" colSpan="2"></StackLayout>
-
-                    <Image row="2" [src]="event.imageUrl" stretch="aspectFill" height="120" class="m-r-20"></Image>
-                    <StackLayout row="3" col="1" verticalAlignment="center" class="list-group-item-text">
-
+                    <StackLayout row="1" class="hr-light m-t-5 m-b-5" colSpan="3"></StackLayout>
+                    <StackLayout row="2" verticalAlignment="center">
                         <Label class="p-b-10">
                             <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
                             <FormattedString ios:fontFamily="system">
-                                <Span text="&#xf073;   Date: " class="fa text-primary"></Span>
-                                <Span [text]="event.dateCreated"></Span>
+                                <Span text="Type" fontSize="12" class="fa text-primary"></Span>
                             </FormattedString>
                         </Label>
                         <Label class="p-b-10">
                             <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
                             <FormattedString ios:fontFamily="system">
-                                <Span text="&#xf017;   Starts: " class="fa text-primary"></Span>
-                                <Span [text]="event.startTime"></Span>
+                                <Span text="" class="fa text-primary" fontSize="32"></Span>
+                                <Span text="{{event.activityType ==='call' ? '&#xf095;' : '&#xf0e0;' }}"
+                                    class="fa text-primary" fontSize="32"></Span>
                             </FormattedString>
                         </Label>
-                        <Label>
+
+                    </StackLayout>
+
+                    <StackLayout row="2" col="1" verticalAlignment="center" class="list-group-item-text">
+                        <Label class="p-b-10">
                             <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
                             <FormattedString ios:fontFamily="system">
-                                <Span text="&#xf292;   " class="fa text-primary"></Span>
-                                <Span [text]="event.tag"></Span>
+                                <Span text="&#xf007;   Owner: " class="fa text-primary"></Span>
+                                <Span [text]="event.owner"></Span>
+                            </FormattedString>
+                        </Label>
+
+                        <Label class="p-b-10">
+                            <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                            <FormattedString ios:fontFamily="system">
+                                <Span text="&#xf012;   Priority:  &nbsp; &nbsp;&nbsp;" class="fa text-primary"></Span>
+                                <Span
+                                    text="{{event.priority ==='1' ? '&#xf2cb; Low' : event.priority ==='2' ? '&#xf2c9; Medium' : '&#xf2c7; High' }}"
+                                    class="{{event.priority ==='1' ? 'fa priority-label low' : event.priority ==='2' ? 'fa priority-label medium' : 'fa priority-label high' }}"></Span>
+                            </FormattedString>
+                        </Label>
+                        <Label class="p-b-10">
+                            <!-- set fontFamily="system" to workaround "Service exited due to Segmentation fault: 11" error -->
+                            <FormattedString ios:fontFamily="system">
+                                <Span text="&#xf111;   Status: " class="fa text-primary"></Span>
+                                <Span [text]="event.status"></Span>
                             </FormattedString>
                         </Label>
                     </StackLayout>
+                    <StackLayout row="2" col="2">
+                        <Button class="btn btn-primary btn-active" id="{{event.description}}" fontSize="12"
+                            text="Complete" (tap)="markComplete()"></Button>
+                    </StackLayout>
+
                 </GridLayout>
             </StackLayout>
         </ng-template>

@@ -1,0 +1,72 @@
+@import '../../_app-variables.scss';
+
+.menu-panel {
+    vertical-align: center;
+    font-size: 20;
+    margin: 15;
+}
+
+.description-label {
+    margin-bottom: 15;
+}
+
+.account-label {
+    color: #E9E9E9;
+
+
+}
+
+.act-label {
+    color: #E9E9E9;
+    background: $accent-dark;
+    padding: 5;
+}
+
+.accounts .company {
+    font-weight: bold;
+    color: white;
+}
+
+.home-panel {
+    vertical-align: center;
+    font-size: 20;
+    padding: 0 15;
+    background-color: $accent-dark;
+    height: 105%;
+    margin-top: -150;
+}
+
+.page {
+    margin-top: -100;
+    background: $accent-dark;
+
+}
+
+
+.segBar {
+    selected-background-color: white;
+
+}
+
+.dash {
+    background: $accent-dark;
+}
+
+.list-group {
+    background-color: $accent-dark;
+
+    &:first-child {
+        background-color: $accent-dark;
+    }
+
+    .list-group-item {
+        margin: 2 0;
+        border-radius: 12;
+
+
+
+        .list-group-item-content {
+            background: white;
+        }
+    }
+}

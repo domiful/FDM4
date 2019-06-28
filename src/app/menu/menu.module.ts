@@ -5,6 +5,8 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
 import { MenuRoutingModule } from "./menu-routing.module";
 import { MenuComponent } from "./menu.component";
+import { ActionBarDirective } from "./action-bar.directive";
+
 
 @NgModule({
     imports: [
@@ -14,6 +16,7 @@ import { MenuComponent } from "./menu.component";
         NativeScriptFormsModule
     ],
     declarations: [
+        ActionBarDirective,
         MenuComponent
     ],
     schemas: [
